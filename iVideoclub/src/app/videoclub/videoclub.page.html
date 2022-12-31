@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button *ngIf="modoLista == true" (click)="cambiarVista()">
+        <small><ion-icon slot="icon-only" name="apps-sharp"></ion-icon></small>
+      </ion-button>
+      <ion-button *ngIf="modoLista == false" (click)="cambiarVista()">
+        <small><ion-icon slot="icon-only" name="reorder-four-sharp"></ion-icon></small>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <small>iVideoclub</small>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list lines="full" *ngIf="modoLista">
+    <ion-item button *ngFor="let pelicula of listaPeliculas; index as id" (click)="verPaginaDetalle(id)" detail>
+      <ion-thumbnail slot="start">
+        <ion-img src="assets/{{pelicula.poster}}"></ion-img>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{pelicula.title}}</h2>
+        <p><b>Director: </b>{{pelicula.director}}</p>
+        <p><b>Año: </b>{{pelicula.year}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div  *ngIf="empty">
+    La lista está vacía
+  </div>
+
+  <ion-grid *ngIf="!modoLista">
+    <ion-row>
+      <ion-col size-md="3" size-sm="4" size-xs="6" *ngFor="let pelicula of listaPeliculas; index as id" (click)="verPaginaDetalle(id)"> 
+        <ion-card>
+          <ion-img src="assets/{{pelicula.poster}}"></ion-img>
+          <ion-card-content>
+            <p><b>{{pelicula.title}}</b></p>
+            <p><b>Director: </b>{{pelicula.director}}</p>
+            <p><b>Año: </b>{{pelicula.year}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
